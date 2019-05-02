@@ -1,10 +1,16 @@
 import express from 'express'
-// import { displayRoutes } from 'express-routemap'
+const app = express()
 let displayRoutes = require('express-routemap')
+// 引入post解析中间件
+let bodyParser = require('body-parser')
+let multer = require('multer')
+let upload = multer()
+
 import router from './router'
 import config from './config'
 
-const app = express()
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(upload.array())
 
 app.use('/', router)
 

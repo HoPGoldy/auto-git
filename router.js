@@ -6,7 +6,8 @@ let router = express.Router()
 
 config.gitRepos.map(repo => {
     router.post(`/${repo.router}`, (req, res) => {
-		console.log('get path', repo.path)
+        console.log('收到push hook')
+        console.log(req.body)
         res.send(repo.path)
     })
 })
