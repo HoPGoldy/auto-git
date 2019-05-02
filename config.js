@@ -8,5 +8,6 @@ export default {
             router: 'testRepo2',
             path: '/home/testGitRepo2'
         }
-    ]
+    ],
+	startPort: 3038
 }
