@@ -1,0 +1,30 @@
+{
+  "name": "auto-deploy",
+  "version": "1.0.0",
+  "description": "基于express的服务端自动部署工具",
+  "main": "index.js",
+  "scripts": {
+    "start": "node start.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HoPGoldy/auto-deploy.git"
+  },
+  "keywords": [
+    "express",
+    "auto"
+  ],
+  "author": "hopgoldy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HoPGoldy/auto-deploy/issues"
+  },
+  "homepage": "https://github.com/HoPGoldy/auto-deploy#readme",
+  "dependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "express": "^4.16.4"
+  }
+}
