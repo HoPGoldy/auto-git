@@ -15,6 +15,6 @@ app.use(upload.array())
 app.use('/', router)
 
 app.listen(config.startPort, () => {
-    console.log(`app start at port ${config.startPort}`)
+    console.log(`\napp start at port ${config.startPort}`)
     displayRoutes(app)
 })
