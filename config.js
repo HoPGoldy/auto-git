@@ -2,7 +2,7 @@ export default {
     gitRepos: [
         {
             router: 'testRepo1',
-            path: '/home/testGitRepo'
+            path: '/home/auto-deploy-test-repo'
         },
         {
             router: 'testRepo2',

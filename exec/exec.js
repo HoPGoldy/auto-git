@@ -14,20 +14,18 @@ export async function execAsync(command) {
     })
 }
 
-export async function execFileAsync(filePath) {
-    execFile(filePath, [], { 
+export async function execFileAsync(filePath, args) {
+    execFile(filePath, args, { 
         env: {
             PATH: process.env.PATH,
             HOME: process.env.HOME
         }
-    }, (err, stderr, stdout) => {
+    }, (err, stdout, stderr) => {
         if(err) {
             console.log(err)
             return false
         }
-        console.log(`stdout: \n${stdout}\n`)
-        console.log(`stderr: \n${stderr}\n`)
-
+        // console.log(`stdout: \n${stdout}\n`)
         return true
     })
 }
