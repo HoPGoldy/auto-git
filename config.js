@@ -2,11 +2,8 @@ export default {
     gitRepos: [
         {
             router: 'testRepo1',
-            path: '/home/auto-deploy-test-repo'
-        },
-        {
-            router: 'testRepo2',
-            path: '/home/testGitRepo2'
+            path: '/home/auto-deploy-test-repo',
+            deployScript: 'auto-deploy.sh'
         }
     ],
 	startPort: 3038

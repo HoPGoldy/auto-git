@@ -14,7 +14,7 @@ export async function execAsync(command) {
     })
 }
 
-export async function execFileAsync(filePath, args) {
+export async function execFileAsync(filePath, args=[]) {
     execFile(filePath, args, { 
         env: {
             PATH: process.env.PATH,
@@ -22,10 +22,15 @@ export async function execFileAsync(filePath, args) {
         }
     }, (err, stdout, stderr) => {
         if(err) {
-            console.log(err)
-            return false
+            return {
+                state: false,
+                msg: err
+            }
         }
         // console.log(`stdout: \n${stdout}\n`)
-        return true
+        return {
+            state: true,
+            msg: stdout
+        }
     })
 }
