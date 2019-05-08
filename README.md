@@ -18,12 +18,12 @@
 
 ## 步骤二：配置auto-deploy
 
-打开 `auto-deploy/src/config.js` 文件，使用注释内容在 `gitRepos` 中新建一个配置项
+打开 `auto-deploy/src/config.js` 文件，使用注释内容在 `gitRepos` 中新建一个配置项，配置完成后即可使用 `npm start` 启动服务
 
 ## 步骤三：配置的webhook
 
-打开github，访问 **setting > webhook** 配置上一步中新建的url
+打开github，访问 **setting > webhook** 配置上一步中新建的 URL 以及 Secret，注意：`Content type` 需要选择为 `application/json`
 
 ## 步骤四：新建部署脚本
 
-在项目的根目录下新建一个脚本，脚本名称应该与上一步中设置的相同（默认为 `auto-deploy.sh`），**注意**：请确保该脚本有执行权限
+在项目的根目录下新建 shell 脚本，脚本名称应该与第二步中设置的相同（默认为 `auto-deploy.sh`），**注意**：请确保该脚本有执行权限
