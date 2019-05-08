@@ -10,6 +10,7 @@ import router from './router/router'
 import config from './config'
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(upload.array())
 
 app.use('/', router)
