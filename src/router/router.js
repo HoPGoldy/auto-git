@@ -21,7 +21,7 @@ config.gitRepos.map(repo => {
             console.log(pullResult.stdout)
         }
 
-        console.log('代码拉取完成，正在执行auto-deploy.sh')
+        console.log('代码拉取完成，正在执行部署脚本')
         let execResult = await execAsync(path.join(repo.path, repo.deployScript))
 
         if (!execResult.state) {
