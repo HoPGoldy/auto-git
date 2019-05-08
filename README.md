@@ -1,5 +1,5 @@
 # auto-deploy
-基于express的服务端自动部署工具
+一个基于express的轻量级服务端自动部署工具
 
 # 介绍
 
