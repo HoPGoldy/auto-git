@@ -1,6 +1,5 @@
 import express from 'express'
 const app = express()
-import displayRoutes from 'express-routemap'
 // 引入post解析中间件
 import bodyParser from 'body-parser'
 import multer from 'multer'
@@ -15,7 +14,11 @@ app.use(upload.array())
 
 app.use('/', router)
 
+import { log } from './utils'
+
 app.listen(config.startPort, () => {
-    console.log(`\napp start at port ${config.startPort}`)
-    displayRoutes(app)
+    log(`启动于端口 ${config.startPort}`)
+	config.gitRepos.map(repo => {
+		log(`开放路由 > localhost:${config.startPort}/${repo.router}`)
+	})
 })
