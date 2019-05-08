@@ -38,7 +38,7 @@ config.gitRepos.map(repo => {
             return false
         }
         
-        console.log('[auto] 代码拉取完成，正在执行部署脚本\n')
+        log('代码拉取完成，正在执行部署脚本\n')
         let execResult = await execAsync(path.join(repo.path, repo.deployScript))
 
         if (!execResult.state) {
