@@ -1,5 +1,5 @@
 import express from 'express'
-import { execFileAsync } from '../exec/exec'
+import { execAsync } from '../exec/exec'
 import config from '../config'
 import path from 'path'
 
@@ -13,7 +13,7 @@ config.gitRepos.map(repo => {
 
         let pullResult = await execAsync('./src/exec/gitDownload.sh', [ repo.path ])
         if (!pullResult.state) {
-            console.log('执行失败', pullResult.msg)
+            console.log('执行失败', pullResult.err)
             res.send(false)
             return false
         }

@@ -3,14 +3,16 @@ import path from 'path'
 
 export function execAsync(filePath, args=[]) {
     return new Promise((resolve, reject) => {
-        const cmdProcess = spawn(filePath, args)
+        const cmdProcess = spawn(filePath, args, {
+			cwd: path.isAbsolute(filePath) ? path.dirname(filePath) : undefined
+		})
 
         cmdProcess.stdout.on('data', (data) => {
-            console.log(data)
+            console.log(`${data}`)
         })
         
         cmdProcess.stderr.on('data', (data) => {
-            console.log(data)
+            console.log(`${data}`)
         })
         
         cmdProcess.on('close', (code) => {
