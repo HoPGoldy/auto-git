@@ -1,25 +1,29 @@
-import { execFile } from 'child_process'
+import { spawn } from 'child_process'
 import path from 'path'
 
-export function execFileAsync(filePath, args=[]) {
+export function execAsync(filePath, args=[]) {
     return new Promise((resolve, reject) => {
-        execFile(filePath, args, { 
-            env: {
-                PATH: process.env.PATH,
-                HOME: process.env.HOME
-            }
-        }, (err, stdout, stderr) => {
-            if(err) {
-                resolve({
-                    state: false,
-                    msg: err
-                })
-            }
-            // console.log(`stdout: \n${stdout}\n`)
+        const cmdProcess = spawn(filePath, args)
+
+        cmdProcess.stdout.on('data', (data) => {
+            console.log(data)
+        })
+        
+        cmdProcess.stderr.on('data', (data) => {
+            console.log(data)
+        })
+        
+        cmdProcess.on('close', (code) => {
             resolve({
                 state: true,
-                stdout,
-                stderr
+                code
+            })
+        })
+
+        cmdProcess.on('error', (err) => {
+            resolve({
+                state: false,
+                err
             })
         })
     })
