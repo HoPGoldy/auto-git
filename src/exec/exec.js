@@ -1,4 +1,5 @@
 import { execFile } from 'child_process'
+import path from 'path'
 
 export function execFileAsync(filePath, args=[]) {
     return new Promise((resolve, reject) => {
