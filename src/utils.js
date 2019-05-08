@@ -1,3 +1,3 @@
 export function log(msg) {
-    console.log(`\\033[42;30m AUTO \\033[40;32m ${msg}\\033[;0m`)
+    console.log(`\x1b[43;30m AUTO \x1b[0m\x1b[33m ${msg}\x1b[;0m`)
 }
