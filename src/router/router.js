@@ -1,6 +1,6 @@
 import express from 'express'
-import { execFileAsync } from './exec/exec'
-import config from './config'
+import { execFileAsync } from '../exec/exec'
+import config from '../config'
 import path from 'path'
 
 let router = express.Router()
