@@ -9,7 +9,7 @@ export function execFileAsync(filePath, args=[]) {
             }
         }, (err, stdout, stderr) => {
             if(err) {
-                reject({
+                resolve({
                     state: false,
                     msg: err
                 })
