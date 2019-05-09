@@ -31,3 +31,17 @@
 ## 步骤五：测试
 
 提交目标项目代码，若一切正常则应该可以看到 auto-deploy 服务自动拉取项目代码并执行 auto-deploy.sh 脚本
+
+# 注意事项
+
+**请不要手动修改项目中已经拉取的代码！** 若新代码没有加入 git 暂存区，auto-deploy 在拉取代码前会将其清空。若已经加入 git 暂存区或提交了 commit ，那么 auto-deploy 在拉取代码时可能会出错。
+
+所以，请确保服务器项目中的git工作区的整洁
+
+```bash
+user@server: /your/project/path# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+```
