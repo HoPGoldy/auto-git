@@ -7,4 +7,5 @@ fi;
 
 gitPath=$1
 cd $gitPath
+git checkout .
 git pull
