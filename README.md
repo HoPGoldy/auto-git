@@ -20,6 +20,20 @@
 
 打开 `auto-deploy/src/config.js` 文件，使用注释内容在 `gitRepos` 中新建一个配置项，配置完成后即可使用 `npm start` 启动服务
 
+```js
+// // 通过复制并编辑该配置项来新建路由
+// {
+//     // router 为该项目的专用路由 完整地址为 http://hostUrl:3038/[router]
+//     router: 'testRepo1',
+//     // path 为该项目的绝对访问路径 请确保该路径下存在项目的.git目录
+//     path: '/home/auto-deploy-test-repo',
+//     // deployScript 为该项目根文件下用于执行自动部署的脚步名称
+//     deployScript: 'auto-deploy.sh',
+//     // secret 为项目 webhook 中配置的密匙，该项为必填项
+//     secret: 'a12345'
+// }
+```
+
 ## 步骤三：配置的webhook
 
 打开github，访问 **setting > webhook** 配置上一步中新建的 URL 以及 Secret，注意：`Content type` 需要选择为 `application/json`
@@ -31,6 +45,8 @@
 ## 步骤五：测试
 
 提交目标项目代码，若一切正常则应该可以看到 auto-deploy 服务自动拉取项目代码并执行 auto-deploy.sh 脚本
+
+![演示](src/images/show.gif)
 
 # 注意事项
 
