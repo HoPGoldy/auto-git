@@ -40,7 +40,12 @@
 
 ## 步骤四：新建部署脚本
 
-在项目的根目录下新建 shell 脚本，脚本名称应该与第二步中设置的相同（默认为 `auto-deploy.sh`），**注意**：请确保该脚本有执行权限
+在项目的根目录下新建 shell 脚本，脚本名称应该与第二步中设置的相同（默认为 `auto-deploy.sh`），**注意**：请确保该脚本有执行权限。在本项目的 `/example` 文件夹下包含有两个示例部署脚本，分别是：
+
+- `auto-deploy-with-forever.sh` 使用 forever 部署 node 项目
+- `auto-deploy-with-docker.sh` 使用 docker 构建并部署 node 项目
+
+
 
 ## 步骤五：测试
 
