@@ -4,7 +4,7 @@ import crypto from 'crypto'
 import { log } from '../utils'
 
 // secret校验
-const checkSignature = (repo) => {
+export const checkSignature = (repo) => {
     return async (req, res, next) => {
         log('收到请求，正在校验签名')
 		const secret = req.headers['x-hub-signature']
@@ -27,14 +27,14 @@ const checkSignature = (repo) => {
 }
 
 // 检查分支是否正确
-const checkBranch = (repo) => {
+export const checkBranch = (repo) => {
     return async (req, res, next) => {
         next()
     }
 }
 
 // 拉取代码
-const pullCode = (repo) => {
+export const pullCode = (repo) => {
     return async (req, res, next) => {
         log('校验成功，正在拉取代码\n')
         const payload = req.body
@@ -53,7 +53,7 @@ const pullCode = (repo) => {
 }
 
 // 执行自动部署脚本
-const execScript = (repo) => {
+export const execScript = (repo) => {
     return async (req, res, next) => {
         log('代码拉取完成，正在执行部署脚本\n')
         let execResult = await execAsync(path.join(repo.path, repo.deployScript))
@@ -72,11 +72,4 @@ const execScript = (repo) => {
 
 function sign(data, secret) {
     return 'sha1=' + crypto.createHmac('sha1', secret).update(data).digest('hex')
-}
-
-export default {
-    checkSignature,
-    checkBranch,
-    pullCode,
-    execScript
 }
