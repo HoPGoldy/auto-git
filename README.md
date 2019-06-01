@@ -18,7 +18,7 @@
 
 ## 步骤二：配置auto-deploy
 
-打开 `auto-deploy/src/config.js` 文件，使用注释内容在 `gitRepos` 中新建一个配置项，配置完成后即可使用 `npm start` 启动服务
+打开 `src/config.js` 并使用注释内容在 `gitRepos` 中新建一个配置项，配置完成后即可使用 `npm start` 启动服务
 
 ```js
 // // 通过复制并编辑该配置项来新建路由
@@ -30,7 +30,9 @@
 //     // deployScript 为该项目根文件下用于执行自动部署的脚步名称
 //     deployScript: 'auto-deploy.sh',
 //     // secret 为项目 webhook 中配置的密匙，该项为必填项
-//     secret: 'a12345'
+//     secret: 'a12345',
+//     // 设置需要进行部署的分支
+//     branchs: [ "master" ]
 // }
 ```
 
