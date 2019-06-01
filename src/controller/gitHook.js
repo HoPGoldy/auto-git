@@ -29,14 +29,24 @@ export const checkSignature = (repo) => {
 // 检查分支是否正确
 export const checkBranch = (repo) => {
     return async (req, res, next) => {
-        next()
+        log('校验，正在检查分支')
+        const payload = req.body
+        const branchName = payload.ref.split('/').pop()
+        repo.branchs.map(branch => {
+            if (branch === branchName) {
+                next()
+                return true
+            }
+        })
+        res.send(false)
+        return false
     }
 }
 
 // 拉取代码
 export const pullCode = (repo) => {
     return async (req, res, next) => {
-        log('校验成功，正在拉取代码\n')
+        log('通过检查，正在拉取代码\n')
         const payload = req.body
         console.log(payload.repository.git_url)
 

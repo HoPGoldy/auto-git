@@ -12,18 +12,6 @@ export const gitRepos = [
     //     // 设置需要进行部署的分支
     //     branchs: [ "master" ]
     // }
-    {                                                                                                                                                                                    
-        router: 'github-io',                                                                                                                                                             
-        path: '/home/github-io-backend',                                                                                                                                                 
-        deployScript: 'auto-deploy.sh',                                                                                                                                                  
-        secret: '60060a1b472e80e2097cbfe37b9fe8fe'                                                                                                                                       
-    },                                                                                                                                                                                   
-    {                                                                                                                                                                                    
-        router: 'student-club-management-system-server',                                                                                                                                 
-        ath: '/home/student-club-management-system-server',                                                                                                                             
-        deployScript: 'auto-deploy.sh',                                                                                                                                                  
-        secret: '74c183c1de9620f1cec228a89981957f'                                                                                                                                       
-    }
 ]
 
 export const serverInfo = {

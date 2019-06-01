@@ -7,6 +7,7 @@ let router = express.Router()
 gitRepos.map(repo => {
     router.post(`/${repo.router}`,
         checkSignature(repo),
+        checkBranch(repo),
         pullCode(repo),
         execScript(repo)
     )
