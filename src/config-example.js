@@ -9,14 +9,11 @@ export default {
         //     // deployScript 为该项目根文件下用于执行自动部署的脚步名称
         //     deployScript: 'auto-deploy.sh',
 		//     // secret 为项目 webhook 中配置的密匙，该项为必填项
-		//     secret: 'a12345'
-        // },
-        {
-            router: 'testRepo1',
-            path: '/home/auto-deploy-test-repo',
-            deployScript: 'auto-deploy.sh',
-			secret: 'a12345'
-        },
+        //     secret: 'a12345',
+        //     // 设置需要进行部署的分支
+        //     branchs: [ "master" ]
+        // }
     ],
+    // 启动端口号
 	startPort: 3038
 }
