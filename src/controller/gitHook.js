@@ -11,13 +11,13 @@ export const checkSignature = (repo) => {
 		if (secret) {
 			const key = sign(JSON.stringify(req.body), repo.secret)
 			if (key != secret) {
-				log('校验失败')
+				log('校验失败, 部署结束, 待命中')
 				res.send(false)
 				return false
 			}
 		}
 		else {
-			log('未发现签名')
+			log('未发现签名, 部署结束, 待命中')
 			res.send(false)
 			return false
         }
@@ -38,6 +38,7 @@ export const checkBranch = (repo) => {
                 return true
             }
         })
+        log(`推送分支为${branchName}, 不在部署分支列表内, 部署结束, 待命中`)
         res.send(false)
         return false
     }
@@ -52,7 +53,7 @@ export const pullCode = (repo) => {
 
         let pullResult = await execAsync('./src/exec/gitDownload.sh', [ repo.path ])
         if (!pullResult.state) {
-            log('执行失败, 错误信息如下')
+            log('执行失败, 错误信息如下, 部署结束, 待命中')
             console.log(pullResult.err)
             res.send(false)
             return false
@@ -69,7 +70,7 @@ export const execScript = (repo) => {
         let execResult = await execAsync(path.join(repo.path, repo.deployScript))
 
         if (!execResult.state) {
-            log('执行失败，错误信息如下')
+            log('执行失败，错误信息如下, 部署结束, 待命中')
             console.log(execResult.err)
             res.send(false)
             return false
