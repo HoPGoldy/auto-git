@@ -25,9 +25,9 @@ export const checkSignature = (repo) => {
 
         
         console.log(
-            `\n项目名称: ${payload.repository.name}
-            推送者: ${payload.commits.committer.name}
-            commit信息: ${payload.commits.message}\n`
+            `\n项目名称: ${payload.repository.name}\n`,
+            `推送者: ${payload.head_commit.committer.name}`,
+            `commit信息: ${payload.head_commit.message}\n`
         )
         
         next()
@@ -42,7 +42,7 @@ export const checkBranch = (repo) => {
         const branchName = payload.ref.split('/').pop()
         
         let correctBranchList = repo.branchs.find(branch => branch === branchName)
-        if (correctBranchList.length) {
+        if (correctBranchList) {
             next()
             return true
         }
