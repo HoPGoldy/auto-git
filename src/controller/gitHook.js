@@ -7,9 +7,10 @@ import { log } from '../utils'
 export const checkSignature = (repo) => {
     return async (req, res, next) => {
         log('收到请求，正在校验签名')
-		const secret = req.headers['x-hub-signature']
+        const secret = req.headers['x-hub-signature']
+        const payload = req.body
 		if (secret) {
-			const key = sign(JSON.stringify(req.body), repo.secret)
+			const key = sign(JSON.stringify(payload), repo.secret)
 			if (key != secret) {
 				log('校验失败, 部署结束, 待命中')
 				res.send(false)
@@ -21,6 +22,13 @@ export const checkSignature = (repo) => {
 			res.send(false)
 			return false
         }
+
+        
+        console.log(
+            `\n项目名称: ${payload.repository.name}
+            推送者: ${payload.commits.committer.name}
+            commit信息: ${payload.commits.message}\n`
+        )
         
         next()
     }
@@ -29,18 +37,20 @@ export const checkSignature = (repo) => {
 // 检查分支是否正确
 export const checkBranch = (repo) => {
     return async (req, res, next) => {
-        log('校验，正在检查分支')
+        log('校验完成，正在检查分支')
         const payload = req.body
         const branchName = payload.ref.split('/').pop()
-        repo.branchs.map(branch => {
-            if (branch === branchName) {
-                next()
-                return true
-            }
-        })
-        log(`推送分支为${branchName}, 不在部署分支列表内, 部署结束, 待命中`)
-        res.send(false)
-        return false
+        
+        let correctBranchList = repo.branchs.find(branch => branch === branchName)
+        if (correctBranchList.length) {
+            next()
+            return true
+        }
+        else {
+            res.send(false)
+            log(`推送分支为${branchName}, 不在部署分支列表内, 部署结束, 待命中`)
+            return false
+        }
     }
 }
 
