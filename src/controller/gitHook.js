@@ -25,9 +25,9 @@ export const checkSignature = (repo) => {
 
         
         console.log(
-            `\n项目名称: ${payload.repository.name}\n`,
-            `推送者: ${payload.head_commit.committer.name}`,
-            `commit信息: ${payload.head_commit.message}\n`
+            `\n 项目名称: ${payload.repository.name}\n`,
+            `推送信息: ${payload.head_commit.message}\n`,
+            `推送者: ${payload.head_commit.committer.name}\n`,
         )
         
         next()
