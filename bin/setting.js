@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk')
+const readlineSync = require('readline-sync')
 
 const setting = {
     startPort: 3038,
@@ -39,12 +40,13 @@ const initSetting = () => {
     })
 }
 
-const signColorLog = () => {
+const signUesfulFunction = () => {
     console.color = chalk
+    console.question = readlineSync.question
 }
 
 module.exports = {
     initSetting,
     repoTemplate,
-    signColorLog
+    signUesfulFunction
 }

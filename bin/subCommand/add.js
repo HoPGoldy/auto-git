@@ -1,12 +1,11 @@
 const fs = require('fs')
 const path = require('path')
-const readlineSync = require('readline-sync')
 const crypto = require('crypto')
 const repoTemplate = require('../setting.js').repoTemplate
 
 function getProperty(question, errInfo) {
     do {
-        const result = readlineSync.question(question)
+        const result = console.question(question)
         if (result) {
             return result
         }
@@ -22,13 +21,13 @@ function getRandomHex(length) {
 }
 
 function getDeployScript(defaultValue) {
-    const result = readlineSync.question(`请输入需要执行的shell脚本(${defaultValue}): `)
+    const result = console.question(`请输入需要执行的shell脚本(${defaultValue}): `)
     return result ? result : defaultValue
 }
 
 function getSecret() {
     const LENGTH = 64
-    const result = readlineSync.question(`请输入git webhook的密钥(随机生成${LENGTH}位密钥): `)
+    const result = console.question(`请输入git webhook的密钥(随机生成${LENGTH}位密钥): `)
     if (result) {
         return result
     }
@@ -40,7 +39,7 @@ function getSecret() {
 }
 
 function getBranchs() {
-    const result = readlineSync.question(`请输入希望执行自动部署的分支，使用逗号分隔(只部署master分支): `)
+    const result = console.question(`请输入希望执行自动部署的分支，使用逗号分隔(只部署master分支): `)
     if (result) {
         return result.split(',').map(branch => branch.replace(/^\s+|\s+$/g,""))
     }

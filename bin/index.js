@@ -1,8 +1,8 @@
 const program = require('commander')
 const addSubCommand = require('./subCommand')
 const initSetting = require('./setting').initSetting
-// 注册彩色log
-require('./setting').signColorLog()
+// 注册常用方法
+require('./setting').signUesfulFunction()
 
 initSetting().then(() => {
     program
