@@ -4,7 +4,9 @@ const chalk = require('chalk')
 const readlineSync = require('readline-sync')
 
 const setting = {
-    startPort: 3038,
+    serverInfo: {
+        startPort: 3038
+    },
     gitRepos: [ ]
 }
 
