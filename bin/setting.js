@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+const fs = require('fs')
+const path = require('path')
 
 const setting = {
     startPort: 3038,
@@ -10,7 +10,7 @@ const newSetting = (settingFile) => {
     return fs.writeFileSync(settingFile, JSON.stringify(setting, null, 4))
 }
 
-export const RepoTemplate = {
+const repoTemplate = {
     // router 为该项目的专用路由 完整地址为 http://hostUrl:3038/[router]
     router: 'testRepo1',
     // path 为该项目的绝对访问路径 请确保该路径下存在项目的.git目录
@@ -23,7 +23,7 @@ export const RepoTemplate = {
     branchs: [ "master" ]
 }
 
-export const initSetting = () => {
+const initSetting = () => {
     return new Promise((resolve, reject) => {
         let settingFile = path.join(__dirname, 'setting.json')
         fs.stat(settingFile, (err, stats) => {
@@ -36,4 +36,9 @@ export const initSetting = () => {
             }
         })
     })
+}
+
+module.exports = {
+    initSetting,
+    repoTemplate
 }

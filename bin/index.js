@@ -1,6 +1,6 @@
-import program from 'commander'
-import addSubCommand from './subCommand'
-import { initSetting } from './setting'
+const program = require('commander')
+const addSubCommand = require('./subCommand')
+const initSetting = require('./setting').initSetting
 
 initSetting().then(() => {
     program

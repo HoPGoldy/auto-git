@@ -1,5 +1,7 @@
-import addList from './list'
+const list = require('./list')
+const add = require('./add')
 
-export default (program) => {
-    addList(program)
+module.exports = (program) => {
+    add(program)
+    list(program)
 }
