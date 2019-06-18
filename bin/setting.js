@@ -7,9 +7,7 @@ const setting = {
 }
 
 const newSetting = (settingFile) => {
-    fs.writeFile(settingFile, JSON.stringify(setting, null, 4), (err) => {
-        console.log(err ? err : '初始化设置完成')
-    })
+    return fs.writeFileSync(settingFile, JSON.stringify(setting, null, 4))
 }
 
 export const RepoTemplate = {
@@ -26,8 +24,16 @@ export const RepoTemplate = {
 }
 
 export const initSetting = () => {
-    let settingFile = path.join(__dirname, '../src/setting.json')
-    fs.stat(settingFile, (err, stats) => {
-        if (err) newSetting(settingFile)
+    return new Promise((resolve, reject) => {
+        let settingFile = path.join(__dirname, 'setting.json')
+        fs.stat(settingFile, (err, stats) => {
+            if (err) {
+                newSetting(settingFile)
+                resolve()
+            }
+            else {
+                resolve()
+            }
+        })
     })
 }
