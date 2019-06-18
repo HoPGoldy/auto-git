@@ -3,16 +3,23 @@ const path = require('path')
 const crypto = require('crypto')
 const repoTemplate = require('../setting.js').repoTemplate
 
-function getProperty(question, errInfo) {
+function getStoreName(allStoreNames) {
     do {
-        const result = console.question(question)
+        const result = console.question('请输入git仓库名: ')
         if (result) {
-            return result
-        }
-        else {
-            console.log(errInfo)
+            if (!allStoreNames.find(name => name === result)) {
+                return result
+            }
+            else {
+                console.log(`仓库名 ${console.color.green(result)} 已被使用`)
+            }
         }
     } while (true)
+}
+
+function getPath(defaultValue) {
+    const result = console.question(`请输入本地对应的仓库路径(${defaultValue}): `)
+    return result ? result : defaultValue
 }
 
 function getRandomHex(length) {
@@ -54,8 +61,8 @@ function cmdAction(cmd) {
     const setting = JSON.parse(resp)
     let template = JSON.parse(JSON.stringify(repoTemplate))
 
-    template.router = getProperty('请输入git仓库名: ', '错误! 请确保输入了正确的git仓库名')
-    template.path = getProperty('请输入本地对应的git目录: ', '错误! 请确保输入了正确的git目录')
+    template.router = getStoreName(setting.gitRepos.map(repo => repo.router))
+    template.path = getPath(`/home/${template.router}`)
     template.deployScript = getDeployScript(template.deployScript)
     template.secret = getSecret()
     template.branchs = getBranchs()
