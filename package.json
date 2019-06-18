@@ -1,28 +1,28 @@
 {
-  "name": "auto-deploy",
+  "name": "auto-git",
   "version": "1.0.0",
-  "description": "基于express的服务端自动部署工具",
-  "main": "index.js",
+  "description": "基于express的服务端git项目自动部署工具",
+  "main": "/bin/index.js",
   "scripts": {
     "start": "node start.js",
-    "dev": "nodemon start.js",
-    "cli": "node start.js"
+    "dev": "nodemon start.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HoPGoldy/auto-deploy.git"
+    "url": "git+https://github.com/HoPGoldy/auto-git.git"
   },
   "keywords": [
     "express",
     "auto",
-    "deploy"
+    "deploy",
+    "git"
   ],
   "author": "hopgoldy",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/HoPGoldy/auto-deploy/issues"
+    "url": "https://github.com/HoPGoldy/auto-git/issues"
   },
-  "homepage": "https://github.com/HoPGoldy/auto-deploy#readme",
+  "homepage": "https://github.com/HoPGoldy/auto-git#readme",
   "dependencies": {
     "@babel/core": "^7.4.4",
     "@babel/plugin-transform-runtime": "^7.4.4",
