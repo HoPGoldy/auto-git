@@ -18,7 +18,7 @@ function cmdAction(cmd) {
         })
     }
     else {
-        console.log('没有已添加的git仓库\n')
+        console.log('没有已添加的git仓库')
     }
 }
 
