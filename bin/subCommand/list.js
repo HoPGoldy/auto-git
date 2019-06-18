@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const chalk = require('chalk')
 
 module.exports = (program) => {
     program
@@ -9,11 +8,16 @@ module.exports = (program) => {
         .action((cmd) => {
             const resp = fs.readFileSync(path.join(__dirname, '../setting.json'), 'utf8')
             const data = JSON.parse(resp)
-            console.log(`\n服务将开放在端口: ${data.startPort}`)
+            console.log('---- 已部署项目 ----')
             if (data.gitRepos.length > 0) {
                 data.gitRepos.map(repo => {
+                    const color = console.color
                     console.log(
-                        `仓库名: ${chalk.green(repo.router)}`,
+                        `\n仓库名称: ${color.green(repo.router)}`,
+                        `\n项目路径: ${color.green(repo.path)}`,
+                        `\n部署脚本: ${color.green(repo.deployScript)}`,
+                        `\n验证密钥: ${color.green(repo.secret)}`,
+                        `\n部署分支: ${color.green(repo.branchs.join(', '))}`
                     )
                 })
             }

@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const chalk = require('chalk')
 
 const setting = {
     startPort: 3038,
@@ -38,7 +39,12 @@ const initSetting = () => {
     })
 }
 
+const signColorLog = () => {
+    console.color = chalk
+}
+
 module.exports = {
     initSetting,
-    repoTemplate
+    repoTemplate,
+    signColorLog
 }
