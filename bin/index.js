@@ -1,3 +1,5 @@
+#!/usr/bin/env node  
+
 const program = require('commander')
 const addSubCommand = require('./subCommand')
 const initSetting = require('./setting').initSetting
