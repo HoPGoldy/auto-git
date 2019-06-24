@@ -1,8 +1,11 @@
+const program = require('commander')
 const fs = require('fs')
 const path = require('path')
+const chalk = require('chalk')
+const readlineSync = require('readline-sync')
 
 function cmdAction(cmd) {
-    const settingFile = path.join(__dirname, '../setting.json')
+    const settingFile = path.join(__dirname, 'setting.json')
     let setting = JSON.parse(fs.readFileSync(settingFile, 'utf8'))
     let repoIndex = undefined
     
@@ -12,9 +15,9 @@ function cmdAction(cmd) {
         }
     })
     
-    const color = console.color
+    const color = chalk
     if (repoIndex != undefined) {
-        const result = console.question(`是否要删除 ${color.green(cmd)} 的自动部署?[yes/no] `)
+        const result = readlineSync.question(`是否要删除 ${color.green(cmd)} 的自动部署?[yes/no] `)
         if (['yes', 'y', 'YES', 'Y'].find(item => item == result)) {
             setting.gitRepos.splice(repoIndex, 1)
             fs.writeFileSync(settingFile, JSON.stringify(setting, null, 4))
@@ -30,9 +33,6 @@ function cmdAction(cmd) {
     }
 }
 
-module.exports = (program) => {
-    program
-        .command('remove <storeName>')
-        .description('删除指定仓库的webhook')
-        .action(cmd => cmdAction(cmd))
-}
+program
+    .action(cmd => cmdAction(cmd))
+    .parse(process.argv)

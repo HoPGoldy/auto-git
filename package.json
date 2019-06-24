@@ -8,7 +8,7 @@
     "dev": "nodemon start.js"
   },
   "bin": {
-    "autogit": "bin/index.js"
+    "autogit": "bin/autogit.js"
   },
   "repository": {
     "type": "git",

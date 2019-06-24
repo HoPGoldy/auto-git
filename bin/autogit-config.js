@@ -1,5 +1,7 @@
+const program = require('commander')
 const fs = require('fs')
 const path = require('path')
+const chalk = require('chalk')
 
 // 支持的属性修改参数
 const changeOptions = [
@@ -44,14 +46,14 @@ function cmdAction(cmd) {
     }
     const targetName = cmd.target
 
-    const settingFile = path.join(__dirname, '../setting.json')
+    const settingFile = path.join(__dirname, 'setting.json')
     const setting = JSON.parse(fs.readFileSync(settingFile, 'utf8'))
     
     // 查找选项目名
     let targetRepoIndex = undefined
     setting.gitRepos.map((repo, index) => { if (repo.router === targetName) targetRepoIndex = index})
 
-    const color = console.color
+    const color = chalk
     if (targetRepoIndex != undefined) {
         // 根据 changeOptions 依次检查是否需要修改
         changeOptions.map(option => {
@@ -69,24 +71,22 @@ function cmdAction(cmd) {
         })
     }
     else {
-        console.log(`未发现 ${console.color.green(targetName)} 项目`)
+        console.log(`未发现 ${color.green(targetName)} 项目`)
     }
 
     fs.writeFileSync(settingFile, JSON.stringify(setting, null, 4))
 }
 
-module.exports = (program) => {
-    let subProgram = program
-        .command('config')
-        .description('修改已存在的配置文件')
-        .option('-t, --target <项目名称>', '要修改的项目名称')
+let subProgram = program
+    .option('-t, --target <项目名称>', '要修改的项目名称')
 
-    changeOptions.map(option => {
-        // 生成如下形式的参数
-        //.option('-n, --name [项目名]', '修改项目名称')
-        const shortName = ('shortNmae' in option) ? option.shortNmae : option.name[0]
-        subProgram = subProgram.option(`-${shortName}, --${option.name} [${option.describeName}]`, option.describe)
-    })
+changeOptions.map(option => {
+    // 生成如下形式的参数
+    //.option('-n, --name [项目名]', '修改项目名称')
+    const shortName = ('shortNmae' in option) ? option.shortNmae : option.name[0]
+    subProgram = subProgram.option(`-${shortName}, --${option.name} [${option.describeName}]`, option.describe)
+})
 
-    subProgram.action(cmd => cmdAction(cmd))
-}
+subProgram
+    .action(cmd => cmdAction(cmd))
+    .parse(process.argv)

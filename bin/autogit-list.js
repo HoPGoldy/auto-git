@@ -1,13 +1,15 @@
+const program = require('commander')
 const fs = require('fs')
 const path = require('path')
+const chalk = require('chalk')
 
 function showAllStore() {
-    const settingFile = path.join(__dirname, '../setting.json')
+    const settingFile = path.join(__dirname, 'setting.json')
     const setting = JSON.parse(fs.readFileSync(settingFile, 'utf8'))
     console.log('---- 已部署项目 ----')
     if (setting.gitRepos.length > 0) {
         setting.gitRepos.map(repo => {
-            const color = console.color
+            const color = chalk
             console.log(
                 `\n仓库名称: ${color.green(repo.router)}`,
                 `\n项目路径: ${color.green(repo.path)}`,
@@ -23,7 +25,7 @@ function showAllStore() {
 }
 
 function showPassword(storeName) {
-    const settingFile = path.join(__dirname, '../setting.json')
+    const settingFile = path.join(__dirname, 'setting.json')
     const setting = JSON.parse(fs.readFileSync(settingFile, 'utf8'))
 
     const targetRepo = setting.gitRepos.map((repo, index) => ({
@@ -32,10 +34,10 @@ function showPassword(storeName) {
     })).find(item => item.name == storeName)
 
     if (targetRepo) {
-        console.log(`项目 ${console.color.green(storeName)} 的密钥为\n${console.color.green(setting.gitRepos[targetRepo.index].secret)}`)
+        console.log(`项目 ${chalk.green(storeName)} 的密钥为\n${chalk.green(setting.gitRepos[targetRepo.index].secret)}`)
     }
     else {
-        console.log(`未发现 ${console.color.green(storeName)} 项目`)
+        console.log(`未发现 ${chalk.green(storeName)} 项目`)
     }
 }
 
@@ -48,10 +50,7 @@ function cmdAction(cmd) {
     }
 }
 
-module.exports = (program) => {
-    program
-        .command('list')
-        .description('列出当前设置')
-        .option('-s, --showpwd [仓库名称]', '显示指定仓库名称的密码')
-        .action(cmd => cmdAction(cmd))
-}
+program
+    .option('-s, --showpwd [仓库名称]', '显示指定仓库名称的密码')
+    .action(cmd => cmdAction(cmd))
+    .parse(process.argv)

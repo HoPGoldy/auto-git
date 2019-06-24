@@ -1,7 +1,11 @@
 const fs = require('fs')
 const path = require('path')
 const crypto = require('crypto')
-const repoTemplate = require('../setting.js').repoTemplate
+const repoTemplate = require('./setting.js').repoTemplate
+const program = require('commander')
+
+const readlineSync = require('readline-sync')
+console.question = readlineSync.question
 
 function getStoreName(allStoreNames) {
     do {
@@ -56,7 +60,7 @@ function getBranchs() {
 }
 
 function cmdAction(cmd) {
-    const settingFile = path.join(__dirname, '../setting.json')
+    const settingFile = path.join(__dirname, 'setting.json')
     const resp = fs.readFileSync(settingFile, 'utf8')
     const setting = JSON.parse(resp)
     let template = JSON.parse(JSON.stringify(repoTemplate))
@@ -71,9 +75,6 @@ function cmdAction(cmd) {
     fs.writeFileSync(settingFile, JSON.stringify(setting, null, 4))
 }
 
-module.exports = (program) => {
-    program
-        .command('add')
-        .description('添加一个git仓库')
-        .action(cmd => cmdAction(cmd))
-}
+program
+    .action(cmd => cmdAction(cmd))
+    .parse(process.argv)

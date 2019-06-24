@@ -1,8 +1,9 @@
 const spawn = require('child_process').spawn
 const path = require('path')
+const program = require('commander')
 
 function cmdAction(cmd) {
-    const startFile = path.join(__dirname, '../../start.js')
+    const startFile = path.join(__dirname, '../start.js')
     const cmdProcess = spawn('node', [ startFile ], {
         cwd: path.dirname(startFile)
     })
@@ -17,9 +18,7 @@ function cmdAction(cmd) {
     // console.log('启动！')
 }
 
-module.exports = (program) => {
-    program
-        .command('start')
-        .description('启动主程序')
-        .action(cmd => cmdAction(cmd))
-}
+
+program
+    .action(cmd => cmdAction(cmd))
+    .parse(process.argv)
