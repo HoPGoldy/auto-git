@@ -52,6 +52,6 @@ module.exports = (program) => {
     program
         .command('list')
         .description('列出当前设置')
-        .option('-p, --showpwd [仓库名称]', '显示指定仓库名称的密码')
+        .option('-s, --showpwd [仓库名称]', '显示指定仓库名称的密码')
         .action(cmd => cmdAction(cmd))
 }
