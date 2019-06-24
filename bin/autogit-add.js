@@ -1,8 +1,6 @@
-const fs = require('fs')
-const path = require('path')
-const crypto = require('crypto')
-const repoTemplate = require('./setting.js').repoTemplate
 const program = require('commander')
+const setting = require('./setting')
+const crypto = require('crypto')
 
 const readlineSync = require('readline-sync')
 console.question = readlineSync.question
@@ -60,19 +58,17 @@ function getBranchs() {
 }
 
 function cmdAction(cmd) {
-    const settingFile = path.join(__dirname, 'setting.json')
-    const resp = fs.readFileSync(settingFile, 'utf8')
-    const setting = JSON.parse(resp)
-    let template = JSON.parse(JSON.stringify(repoTemplate))
+    const settingData = setting.load()
+    let template = JSON.parse(JSON.stringify(setting.repoTemplate))
 
-    template.router = getStoreName(setting.gitRepos.map(repo => repo.router))
+    template.router = getStoreName(settingData.gitRepos.map(repo => repo.router))
     template.path = getPath(`/home/${template.router}`)
     template.deployScript = getDeployScript(template.deployScript)
     template.secret = getSecret()
     template.branchs = getBranchs()
 
-    setting.gitRepos.push(template)
-    fs.writeFileSync(settingFile, JSON.stringify(setting, null, 4))
+    settingData.gitRepos.push(template)
+    setting.save(settingData)
 }
 
 program

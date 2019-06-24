@@ -1,14 +1,12 @@
 const program = require('commander')
-const fs = require('fs')
-const path = require('path')
+const setting = require('./setting')
 const chalk = require('chalk')
 
 function showAllStore() {
-    const settingFile = path.join(__dirname, 'setting.json')
-    const setting = JSON.parse(fs.readFileSync(settingFile, 'utf8'))
+    const settingData = setting.load()
     console.log('---- 已部署项目 ----')
-    if (setting.gitRepos.length > 0) {
-        setting.gitRepos.map(repo => {
+    if (settingData.gitRepos.length > 0) {
+        settingData.gitRepos.map(repo => {
             const color = chalk
             console.log(
                 `\n仓库名称: ${color.green(repo.router)}`,
@@ -25,16 +23,14 @@ function showAllStore() {
 }
 
 function showPassword(storeName) {
-    const settingFile = path.join(__dirname, 'setting.json')
-    const setting = JSON.parse(fs.readFileSync(settingFile, 'utf8'))
-
-    const targetRepo = setting.gitRepos.map((repo, index) => ({
+    const settingData = setting.load()
+    const targetRepo = settingData.gitRepos.map((repo, index) => ({
         name: repo.router,
         index: index
     })).find(item => item.name == storeName)
 
     if (targetRepo) {
-        console.log(`项目 ${chalk.green(storeName)} 的密钥为\n${chalk.green(setting.gitRepos[targetRepo.index].secret)}`)
+        console.log(`项目 ${chalk.green(storeName)} 的密钥为\n${chalk.green(settingData.gitRepos[targetRepo.index].secret)}`)
     }
     else {
         console.log(`未发现 ${chalk.green(storeName)} 项目`)

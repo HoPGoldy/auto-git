@@ -1,19 +1,16 @@
 const fs = require('fs')
 const path = require('path')
-const chalk = require('chalk')
-const readlineSync = require('readline-sync')
 
-const setting = {
+// 设置json保存的位置
+const settingFile = path.join(__dirname, 'setting.json')
+// 配置项的初始模板
+const settingTempalte = {
     serverInfo: {
         startPort: 3038
     },
     gitRepos: [ ]
 }
-
-const newSetting = (settingFile) => {
-    return fs.writeFileSync(settingFile, JSON.stringify(setting, null, 4))
-}
-
+// 新建自动部署项目时使用的配置项
 const repoTemplate = {
     // router 为该项目的专用路由 完整地址为 http://hostUrl:3038/[router]
     router: 'testRepo1',
@@ -27,28 +24,29 @@ const repoTemplate = {
     branchs: [ "master" ]
 }
 
-const initSetting = () => {
-    return new Promise((resolve, reject) => {
-        let settingFile = path.join(__dirname, 'setting.json')
-        fs.stat(settingFile, (err, stats) => {
-            if (err) {
-                newSetting(settingFile)
-                resolve()
-            }
-            else {
-                resolve()
-            }
-        })
-    })
+// 读取配置项
+function load() {
+    return JSON.parse(fs.readFileSync(settingFile, 'utf8'))
 }
-
-const signUesfulFunction = () => {
-    console.color = chalk
-    console.question = readlineSync.question
+// 覆写配置项
+function save(data) {
+    fs.writeFileSync(settingFile, JSON.stringify(data, null, 4))
+}
+// 初始化配置项，包含以下功能
+// - 未发现 setting.json 时新建 json
+function init() {
+    try {
+        fs.statSync(settingFile)
+    }
+    catch (e) {
+        console.log('设置文件不存在, 已新建')
+        save(settingTempalte)
+    }
 }
 
 module.exports = {
-    initSetting,
-    repoTemplate,
-    signUesfulFunction
+    load,
+    save,
+    init, 
+    repoTemplate
 }

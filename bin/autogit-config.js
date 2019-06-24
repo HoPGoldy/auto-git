@@ -1,6 +1,5 @@
 const program = require('commander')
-const fs = require('fs')
-const path = require('path')
+const setting = require('./setting')
 const chalk = require('chalk')
 
 // 支持的属性修改参数
@@ -46,12 +45,11 @@ function cmdAction(cmd) {
     }
     const targetName = cmd.target
 
-    const settingFile = path.join(__dirname, 'setting.json')
-    const setting = JSON.parse(fs.readFileSync(settingFile, 'utf8'))
+    let settingData = setting.load()
     
     // 查找选项目名
     let targetRepoIndex = undefined
-    setting.gitRepos.map((repo, index) => { if (repo.router === targetName) targetRepoIndex = index})
+    settingData.gitRepos.map((repo, index) => { if (repo.router === targetName) targetRepoIndex = index})
 
     const color = chalk
     if (targetRepoIndex != undefined) {
@@ -60,11 +58,11 @@ function cmdAction(cmd) {
             if (cmd[option.name]) {
                 console.log(
                     `${option.describeName}:`,
-                    `${color.yellow(setting.gitRepos[targetRepoIndex][option.settingName])}`,
+                    `${color.yellow(settingData.gitRepos[targetRepoIndex][option.settingName])}`,
                     `> ${color.green(cmd[option.name])}`
                 )
 
-                setting.gitRepos[targetRepoIndex][option.settingName] = (option.name != 'branchs') ?
+                settingData.gitRepos[targetRepoIndex][option.settingName] = (option.name != 'branchs') ?
                     cmd[option.name] :
                     cmd[option.name].split(',')
             }
@@ -74,7 +72,7 @@ function cmdAction(cmd) {
         console.log(`未发现 ${color.green(targetName)} 项目`)
     }
 
-    fs.writeFileSync(settingFile, JSON.stringify(setting, null, 4))
+    setting.save(settingData)
 }
 
 let subProgram = program
