@@ -8,9 +8,10 @@ let upload = multer()
 import router from './router/router'
 
 // 获取设置项
-import path from 'path'
+import { resolve } from 'path'
+import userHome from 'user-home'
 import fs from 'fs'
-const settingFile = path.join(__dirname, '../bin/setting.json')
+const settingFile = resolve(userHome, '.autogitSetting.json')
 let { serverInfo, gitRepos } = JSON.parse(fs.readFileSync(settingFile, 'utf8'))
 
 app.use(bodyParser.urlencoded({ extended: false }))
