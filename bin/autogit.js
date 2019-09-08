@@ -1,9 +1,11 @@
 #!/usr/bin/env node  
 const program = require('commander')
 require('./setting').init()
+const fs = require('fs')
+const packageVersion = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version
 
 program
-    .version('1.1.0')
+    .version(packageVersion)
     .description('服务端git项目自动部署工具')
     .command('add', '添加一个git仓库')
     .command('start', '启动主程序')

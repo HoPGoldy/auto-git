@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 
 // 设置json保存的位置
-const settingFile = path.join(__dirname, 'setting.json')
+const settingFile = path.resolve(require('user-home'), '.autogitSetting.json')
 // 配置项的初始模板
 const settingTempalte = {
     serverInfo: {

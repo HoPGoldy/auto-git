@@ -1,6 +1,6 @@
 {
   "name": "@hopgoldy/auto-git",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "基于express的服务端git项目自动部署工具",
   "main": "/bin/index.js",
   "scripts": {
@@ -38,6 +38,7 @@
     "express": "^4.16.4",
     "multer": "^1.4.1",
     "nodemon": "^1.19.0",
-    "readline-sync": "^1.4.9"
+    "readline-sync": "^1.4.9",
+    "user-home": "^2.0.0"
   }
 }
