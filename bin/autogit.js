@@ -2,7 +2,8 @@
 const program = require('commander')
 require('./setting').init()
 const fs = require('fs')
-const packageVersion = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version
+const join = require('path').join
+const packageVersion = JSON.parse(fs.readFileSync(join(__dirname, '..', './package.json'), 'utf8')).version
 
 program
     .version(packageVersion)
