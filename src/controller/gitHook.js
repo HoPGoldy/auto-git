@@ -23,14 +23,17 @@ export const checkSignature = (repo) => {
 			return false
         }
 
-        
         console.log(
-            `\n 项目名称: ${payload.repository.name}\n`,
-            `推送信息: ${payload.head_commit.message}\n`,
-            `推送者: ${payload.head_commit.committer.name}\n`,
+            `\n 项目名称: ${payload.repository ? payload.repository.name : 'none'}\n`,
+            `推送信息: ${payload.head_commit ? payload.head_commit.message : 'none'}\n`,
+            `推送者: ${payload.head_commit ? payload.head_commit.committer.name : 'none'}\n`,
         )
-        
-        next()
+
+        if (payload.head_commit) next()
+        else {
+            log('未找到推送内容, 部署结束, 待命中')
+            res.send(true)
+        }
     }
 }
 
